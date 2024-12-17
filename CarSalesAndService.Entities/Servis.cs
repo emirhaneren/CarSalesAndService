@@ -1,4 +1,6 @@
-﻿namespace CarSalesAndService.Entities
+﻿using System.ComponentModel.DataAnnotations;
+
+namespace CarSalesAndService.Entities
 {
     public class Servis : IEntity
     {
@@ -7,13 +9,18 @@
         public string AracSorunu { get; set; }
         public decimal ServisUcreti { get; set; }
         public DateTime ServistenCikisTarihi { get; set; }
-        public string YapilanIslemler { get; set; }
+        public string? YapilanIslemler { get; set; }
         public bool GarantiKapsamindaMi { get; set; }
+        [StringLength(15)]
         public string AracPlaka { get; set; }
+        [StringLength(50)]
         public string Marka { get; set; }
-        public string Model { get; set; }
-        public string KasaTipi { get; set; }
-        public string SaseNo { get; set; }
+        [StringLength(50)]
+        public string? Model { get; set; }
+        [StringLength(50)]
+        public string? KasaTipi { get; set; }
+        [StringLength(50)]
+        public string? SaseNo { get; set; }
         public string Notlar { get; set; }
     }
 }
