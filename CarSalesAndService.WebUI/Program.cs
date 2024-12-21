@@ -1,6 +1,7 @@
 using CarSalesAndService.Data;
 using CarSalesAndService.Service.Abstract;
 using CarSalesAndService.Service.Concrete;
+using Microsoft.AspNetCore.Authentication.Cookies;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -9,6 +10,22 @@ builder.Services.AddControllersWithViews();
 
 builder.Services.AddDbContext<DatabaseContext>();
 builder.Services.AddTransient(typeof(IService<>), typeof(Service<>));
+//Authentication Ayarlarý
+builder.Services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme).AddCookie(x =>
+{
+    x.LoginPath = "/AdminPanel/Login"; //Login Path
+    x.AccessDeniedPath="/AccessDenied"; //Baþarýsýz Giriþteki Path
+    x.LogoutPath = "/AdminPanel/Logout"; //Logout Path
+    x.Cookie.Name = "Admin"; //Cookie Name
+    x.Cookie.MaxAge = TimeSpan.FromDays(7); //Giriþ Sonrasý süresi
+    x.Cookie.IsEssential = true;
+});
+
+builder.Services.AddAuthorization(x =>
+{
+    x.AddPolicy("AdminPolicy", policy => policy.RequireClaim("Role", "Admin"));
+    x.AddPolicy("UserPolicy", policy => policy.RequireClaim("Role", "User"));
+});
 
 var app = builder.Build();
 
@@ -25,6 +42,7 @@ app.UseStaticFiles();
 
 app.UseRouting();
 
+app.UseAuthentication();
 app.UseAuthorization();
 
 app.MapControllerRoute(

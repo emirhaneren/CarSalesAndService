@@ -1,5 +1,6 @@
 ﻿using CarSalesAndService.Entities;
 using CarSalesAndService.Service.Abstract;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
@@ -7,6 +8,7 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 namespace CarSalesAndService.WebUI.Areas.AdminPanel.Controllers
 {
     [Area("AdminPanel")]
+    [Authorize(Policy = "AdminPolicy")]
     public class UsersController : Controller
     {
         private readonly IService<Kullanici> _service;
@@ -21,6 +23,7 @@ namespace CarSalesAndService.WebUI.Areas.AdminPanel.Controllers
         // GET: UsersController
         public async Task<ActionResult> IndexAsync()
         {
+            ViewBag.RolId = new SelectList(await _serviceRol.GetAllAsync(), "Id", "Adi");
             var model = await _service.GetAllAsync();
             return View(model);
         }
