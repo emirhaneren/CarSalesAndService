@@ -1,7 +1,6 @@
 ﻿using CarSalesAndService.Entities;
 using CarSalesAndService.Service.Abstract;
 using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 
@@ -35,9 +34,9 @@ namespace CarSalesAndService.WebUI.Areas.AdminPanel.Controllers
         }
 
         // GET: UsersController/Create
-        public  async Task<ActionResult> CreateAsync()
+        public async Task<ActionResult> CreateAsync()
         {
-            ViewBag.RolId=new SelectList(await _serviceRol.GetAllAsync(),"Id","Adi");
+            ViewBag.RolId = new SelectList(await _serviceRol.GetAllAsync(), "Id", "Adi");
             return View();
         }
 
@@ -64,7 +63,7 @@ namespace CarSalesAndService.WebUI.Areas.AdminPanel.Controllers
         }
 
         // GET: UsersController/Edit/5
-        public  async Task<ActionResult> EditAsync(int id)
+        public async Task<ActionResult> EditAsync(int id)
         {
             var model = await _service.FindAsync(id);
             ViewBag.RolId = new SelectList(await _serviceRol.GetAllAsync(), "Id", "Adi");

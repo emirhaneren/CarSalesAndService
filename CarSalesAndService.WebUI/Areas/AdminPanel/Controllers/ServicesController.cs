@@ -1,8 +1,6 @@
 ﻿using CarSalesAndService.Entities;
 using CarSalesAndService.Service.Abstract;
-using CarSalesAndService.Service.Concrete;
 using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
 namespace CarSalesAndService.WebUI.Areas.AdminPanel.Controllers
@@ -61,7 +59,7 @@ namespace CarSalesAndService.WebUI.Areas.AdminPanel.Controllers
         // GET: ServicesController/Edit/5
         public async Task<ActionResult> EditAsync(int id)
         {
-            var model =await _service.FindAsync(id);
+            var model = await _service.FindAsync(id);
             return View(model);
         }
 

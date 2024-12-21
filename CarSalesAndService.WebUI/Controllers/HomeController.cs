@@ -1,6 +1,6 @@
-using System.Diagnostics;
 using CarSalesAndService.WebUI.Models;
 using Microsoft.AspNetCore.Mvc;
+using System.Diagnostics;
 
 namespace CarSalesAndService.WebUI.Controllers
 {

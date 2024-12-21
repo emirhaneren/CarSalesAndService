@@ -14,7 +14,7 @@ builder.Services.AddTransient(typeof(IService<>), typeof(Service<>));
 builder.Services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme).AddCookie(x =>
 {
     x.LoginPath = "/AdminPanel/Login"; //Login Path
-    x.AccessDeniedPath="/AccessDenied"; //Baþarýsýz Giriþteki Path
+    x.AccessDeniedPath = "/AccessDenied"; //Baþarýsýz Giriþteki Path
     x.LogoutPath = "/AdminPanel/Logout"; //Logout Path
     x.Cookie.Name = "Admin"; //Cookie Name
     x.Cookie.MaxAge = TimeSpan.FromDays(7); //Giriþ Sonrasý süresi
@@ -47,7 +47,7 @@ app.UseAuthorization();
 
 app.MapControllerRoute(
             name: "adminPanel",
-            pattern: "{area:exists}/{controller=Main}/{action=Index}/{id?}" );
+            pattern: "{area:exists}/{controller=Main}/{action=Index}/{id?}");
 
 app.MapControllerRoute(
     name: "default",

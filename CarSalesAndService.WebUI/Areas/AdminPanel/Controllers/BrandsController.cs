@@ -1,7 +1,6 @@
 ﻿using CarSalesAndService.Entities;
 using CarSalesAndService.Service.Abstract;
 using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
 namespace CarSalesAndService.WebUI.Areas.AdminPanel.Controllers
@@ -20,7 +19,7 @@ namespace CarSalesAndService.WebUI.Areas.AdminPanel.Controllers
         // GET: BrandsController
         public async Task<ActionResult> IndexAsync()
         {
-            var model =await _service.GetAllAsync();
+            var model = await _service.GetAllAsync();
             return View(model);
         }
 
@@ -39,7 +38,7 @@ namespace CarSalesAndService.WebUI.Areas.AdminPanel.Controllers
         // POST: BrandsController/Create
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public  async Task<ActionResult> CreateAsync(Marka marka)
+        public async Task<ActionResult> CreateAsync(Marka marka)
         {
             try
             {
@@ -55,7 +54,7 @@ namespace CarSalesAndService.WebUI.Areas.AdminPanel.Controllers
         }
 
         // GET: BrandsController/Edit/5
-        public  async Task<ActionResult> EditAsync(int id)
+        public async Task<ActionResult> EditAsync(int id)
         {
             var model = await _service.FindAsync(id);
             return View(model);

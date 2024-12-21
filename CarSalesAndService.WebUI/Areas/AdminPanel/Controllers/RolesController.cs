@@ -1,13 +1,12 @@
 ﻿using CarSalesAndService.Entities;
 using CarSalesAndService.Service.Abstract;
 using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
 namespace CarSalesAndService.WebUI.Areas.AdminPanel.Controllers
 {
     [Area("AdminPanel")]
-    [Authorize(Policy ="AdminPolicy")]
+    [Authorize(Policy = "AdminPolicy")]
     public class RolesController : Controller
     {
         private readonly IService<Rol> _service;

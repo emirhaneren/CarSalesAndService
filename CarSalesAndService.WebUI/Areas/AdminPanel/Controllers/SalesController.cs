@@ -1,7 +1,6 @@
 ﻿using CarSalesAndService.Entities;
 using CarSalesAndService.Service.Abstract;
 using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 
@@ -40,8 +39,8 @@ namespace CarSalesAndService.WebUI.Areas.AdminPanel.Controllers
         // GET: SalesController/Create
         public async Task<ActionResult> CreateAsync()
         {
-            ViewBag.AracId = new SelectList(await _serviceArac.GetAllAsync(),"Id","Modeli");
-            ViewBag.MusteriId = new SelectList(await _serviceMusteri.GetAllAsync(),"Id","Adi");
+            ViewBag.AracId = new SelectList(await _serviceArac.GetAllAsync(), "Id", "Modeli");
+            ViewBag.MusteriId = new SelectList(await _serviceMusteri.GetAllAsync(), "Id", "Adi");
             return View();
         }
 
