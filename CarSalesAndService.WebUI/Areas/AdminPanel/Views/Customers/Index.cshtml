@@ -1,10 +1,10 @@
-﻿@model IEnumerable<CarSalesAndService.Entities.Kullanici>
+﻿@model IEnumerable<CarSalesAndService.Entities.Musteri>
 
 @{
-    ViewData["Title"] = "Kullanıcılar";
+    ViewData["Title"] = "Müşteriler";
 }
 
-<h1>Kullanıcılar</h1>
+<h1>Müşteriler</h1>
 
 <p>
     <a class="btn btn-outline-primary" asp-action="Create">Yeni Ekle</a>
@@ -19,25 +19,22 @@
                 Soyadı
             </th>
             <th>
+                TCKN
+            </th>
+            <th>
                 e-Mail
+            </th>
+            <th>
+                Adres
             </th>
             <th>
                 Telefon
             </th>
             <th>
-                Kullanıcı Adı
+                Notlar
             </th>
             <th>
-                Şifre
-            </th>
-            <th>
-                Aktif Mi ?
-            </th>
-            <th>
-                Eklenme Tarihi
-            </th>
-            <th>
-                Rol
+                Araç
             </th>
             <th></th>
         </tr>
@@ -53,25 +50,22 @@
                     @Html.DisplayFor(modelItem => item.Soyadi)
                 </td>
                 <td>
+                    @Html.DisplayFor(modelItem => item.TcNo)
+                </td>
+                <td>
                     @Html.DisplayFor(modelItem => item.Email)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Adres)
                 </td>
                 <td>
                     @Html.DisplayFor(modelItem => item.Telefon)
                 </td>
                 <td>
-                    @Html.DisplayFor(modelItem => item.KullaniciAdi)
+                    @Html.DisplayFor(modelItem => item.Notlar)
                 </td>
                 <td>
-                    @Html.DisplayFor(modelItem => item.Sifre)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.AktifMi)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.EklenmeTarihi)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Rol.Adi)
+                    @Html.DisplayFor(modelItem => item.Arac.Modeli)
                 </td>
                 <td>
                     <a class="btn btn-outline-primary" asp-action="Edit" asp-route-id="@item.Id">Düzenle</a> |
