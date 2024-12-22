@@ -18,6 +18,8 @@ namespace CarSalesAndService.Entities
         public int ModelYili { get; set; }
         [Display(Name = "Satışta Mı ?")]
         public bool SatistaMi { get; set; }
+        [Display(Name = "Anasayfa mı ?")]
+        public bool Anasayfa { get; set; }
         [Required(ErrorMessage = "{0} Boş bırakılamaz !")]
         public string Notlar { get; set; }
         [StringLength(300)]

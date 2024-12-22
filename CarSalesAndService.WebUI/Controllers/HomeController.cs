@@ -9,15 +9,21 @@ namespace CarSalesAndService.WebUI.Controllers
     public class HomeController : Controller
     {
         private readonly IService<Slider> _serviceSlider;
+        private readonly ICarService _serviceArac;
 
-        public HomeController(IService<Slider> serviceSlider)
+        public HomeController(IService<Slider> serviceSlider, ICarService serviceArac)
         {
             _serviceSlider = serviceSlider;
+            _serviceArac = serviceArac;
         }
 
         public async Task<IActionResult> Index()
         {
-            var model = await _serviceSlider.GetAllAsync();
+            var model = new HomePageViewModel()
+            {
+                Sliders = await _serviceSlider.GetAllAsync(),
+                Cars = await _serviceArac.GetCustomCarList(a=>a.Anasayfa)
+            };
             return View(model);
         }
 

@@ -30,6 +30,9 @@ namespace CarSalesAndService.Data.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
+                    b.Property<bool>("Anasayfa")
+                        .HasColumnType("bit");
+
                     b.Property<decimal>("Fiyati")
                         .HasColumnType("decimal(18,2)");
 
@@ -137,7 +140,7 @@ namespace CarSalesAndService.Data.Migrations
                             Id = 1,
                             Adi = "Admin",
                             AktifMi = true,
-                            EklenmeTarihi = new DateTime(2024, 12, 21, 16, 54, 34, 563, DateTimeKind.Local).AddTicks(481),
+                            EklenmeTarihi = new DateTime(2024, 12, 22, 16, 59, 58, 93, DateTimeKind.Local).AddTicks(187),
                             Email = "admin@otoservice.com",
                             KullaniciAdi = "admin",
                             RolId = 1,

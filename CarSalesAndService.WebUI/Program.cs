@@ -8,8 +8,10 @@ var builder = WebApplication.CreateBuilder(args);
 // Add services to the container.
 builder.Services.AddControllersWithViews();
 
+//Servislerin eklenmesi
 builder.Services.AddDbContext<DatabaseContext>();
 builder.Services.AddTransient(typeof(IService<>), typeof(Service<>));
+builder.Services.AddTransient<ICarService, CarService>();
 //Authentication Ayarlarý
 builder.Services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme).AddCookie(x =>
 {
