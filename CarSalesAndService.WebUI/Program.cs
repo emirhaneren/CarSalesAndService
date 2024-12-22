@@ -15,9 +15,9 @@ builder.Services.AddTransient<ICarService, CarService>();
 //Authentication Ayarlarý
 builder.Services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme).AddCookie(x =>
 {
-    x.LoginPath = "/AdminPanel/Login"; //Login Path
+    x.LoginPath = "/Account/Login"; //Login Path
     x.AccessDeniedPath = "/AccessDenied"; //Baþarýsýz Giriþteki Path
-    x.LogoutPath = "/AdminPanel/Logout"; //Logout Path
+    x.LogoutPath = "/Account/Logout"; //Logout Path
     x.Cookie.Name = "Admin"; //Cookie Name
     x.Cookie.MaxAge = TimeSpan.FromDays(7); //Giriþ Sonrasý süresi
     x.Cookie.IsEssential = true;
@@ -26,7 +26,8 @@ builder.Services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationSc
 builder.Services.AddAuthorization(x =>
 {
     x.AddPolicy("AdminPolicy", policy => policy.RequireClaim("Role", "Admin"));
-    x.AddPolicy("UserPolicy", policy => policy.RequireClaim("Role", "User"));
+    x.AddPolicy("UserPolicy", policy => policy.RequireClaim("Role", "Admin", "User"));
+    x.AddPolicy("CustomerPolicy", policy => policy.RequireClaim("Role", "Admin", "User", "Customer"));
 });
 
 var app = builder.Build();

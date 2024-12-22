@@ -3,6 +3,7 @@ using CarSalesAndService.Service.Abstract;
 using CarSalesAndService.Service.Concrete;
 using CarSalesAndService.WebUI.Models;
 using Microsoft.AspNetCore.Authentication;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.VisualStudio.Web.CodeGenerators.Mvc.Templates.BlazorIdentity.Pages.Manage;
 using System.Security.Claims;
@@ -19,7 +20,7 @@ namespace CarSalesAndService.WebUI.Controllers
             _serviceUser = serviceUser;
             _serviceRol = serviceRol;
         }
-
+        [Authorize(Policy ="CustomerPolicy")]
         public IActionResult Index()
         {
             return View();
@@ -84,6 +85,10 @@ namespace CarSalesAndService.WebUI.Controllers
                     var userIdentitiy = new ClaimsIdentity(claims, "Login");
                     ClaimsPrincipal principal = new ClaimsPrincipal(userIdentitiy);
                     await HttpContext.SignInAsync(principal);
+                    if (rol.Adi == "Admin")
+                    {
+                        return Redirect("/AdminPanel");
+                    }
                     return Redirect("/Account");
                 }
             }

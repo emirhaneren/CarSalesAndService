@@ -7,7 +7,7 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 namespace CarSalesAndService.WebUI.Areas.AdminPanel.Controllers
 {
     [Area("AdminPanel")]
-    [Authorize]
+    [Authorize(Policy = "AdminPolicy")]
     public class CustomersController : Controller
     {
 

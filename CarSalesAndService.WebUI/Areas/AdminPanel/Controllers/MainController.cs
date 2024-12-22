@@ -4,7 +4,7 @@ using Microsoft.AspNetCore.Mvc;
 namespace CarSalesAndService.WebUI.Areas.AdminPanel.Controllers
 {
     [Area("AdminPanel")]
-    [Authorize]
+    [Authorize(Policy = "AdminPolicy")]
     public class MainController : Controller
     {
         public IActionResult Index()

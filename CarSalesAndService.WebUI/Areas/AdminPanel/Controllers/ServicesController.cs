@@ -6,7 +6,7 @@ using Microsoft.AspNetCore.Mvc;
 namespace CarSalesAndService.WebUI.Areas.AdminPanel.Controllers
 {
     [Area("AdminPanel")]
-    [Authorize]
+    [Authorize(Policy = "AdminPolicy")]
     public class ServicesController : Controller
     {
         private readonly IService<Servis> _service;

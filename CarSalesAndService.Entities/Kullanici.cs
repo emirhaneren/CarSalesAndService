@@ -24,5 +24,6 @@ namespace CarSalesAndService.Entities
         public DateTime? EklenmeTarihi { get; set; } = DateTime.Now;
         public int RolId { get; set; }
         public virtual Rol? Rol { get; set; }
+        public Guid? UserGuid { get; set; } = Guid.NewGuid();
     }
 }
