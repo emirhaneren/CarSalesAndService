@@ -1,5 +1,6 @@
 ﻿using CarSalesAndService.Entities;
 using CarSalesAndService.Service.Abstract;
+using CarSalesAndService.WebUI.Utils;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
@@ -43,12 +44,16 @@ namespace CarSalesAndService.WebUI.Areas.AdminPanel.Controllers
         // POST: CarsController/Create
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> CreateAsync(Arac arac)
+        public async Task<ActionResult> CreateAsync(Arac arac, IFormFile? Foto1, IFormFile? Foto2, IFormFile? Foto3)
         {
             if (ModelState.IsValid)
             {
                 try
                 {
+                    arac.Foto1 = await FileHelper.FileLoaderAsync(Foto1, "/Img/Cars/");
+                    arac.Foto2 = await FileHelper.FileLoaderAsync(Foto2, "/Img/Cars/");
+                    arac.Foto3 = await FileHelper.FileLoaderAsync(Foto3, "/Img/Cars/");
+
                     await _service.AddAsync(arac);
                     await _service.SaveAsync();
                     return RedirectToAction(nameof(Index));
@@ -73,12 +78,19 @@ namespace CarSalesAndService.WebUI.Areas.AdminPanel.Controllers
         // POST: CarsController/Edit/5
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> EditAsync(int id, Arac arac)
+        public async Task<IActionResult> EditAsync(int id, Arac arac, IFormFile? Foto1, IFormFile? Foto2, IFormFile? Foto3)
         {
             if (ModelState.IsValid)
             {
                 try
                 {
+                    if (Foto1 != null)
+                        arac.Foto1 = await FileHelper.FileLoaderAsync(Foto1, "/Img/Cars/");
+                    if (Foto2 != null)
+                        arac.Foto2 = await FileHelper.FileLoaderAsync(Foto2, "/Img/Cars/");
+                    if (Foto3 != null)
+                        arac.Foto3 = await FileHelper.FileLoaderAsync(Foto3, "/Img/Cars/");
+
                     _service.Update(arac);
                     await _service.SaveAsync();
                     return RedirectToAction(nameof(Index));

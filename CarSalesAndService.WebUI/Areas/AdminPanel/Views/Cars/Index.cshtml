@@ -31,7 +31,7 @@
                 Satışta Mı ?
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Notlar)
+                Fotoğraf
             </th>
             <th>
                 @Html.DisplayNameFor(model => model.Marka)
@@ -62,7 +62,7 @@
                     @Html.DisplayFor(modelItem => item.SatistaMi)
                 </td>
                 <td>
-                    @Html.DisplayFor(modelItem => item.Notlar)
+                    <img src="~/Img/Cars/@item.Foto1" alt="" height="30px" />
                 </td>
                 <td>
                     @Html.DisplayFor(modelItem => item.Marka.Adi)

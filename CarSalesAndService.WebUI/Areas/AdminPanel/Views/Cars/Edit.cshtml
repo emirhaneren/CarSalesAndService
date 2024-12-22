@@ -9,9 +9,12 @@
 <hr />
 <div class="row">
     <div class="col-md-4">
-        <form asp-action="Edit">
+        <form asp-action="Edit" enctype="multipart/form-data">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <input type="hidden" asp-for="Id" />
+            <input type="hidden" asp-for="Foto1" />
+            <input type="hidden" asp-for="Foto2" />
+            <input type="hidden" asp-for="Foto3" />
             <div class="form-group">
                 <label asp-for="MarkaId" class="control-label">Markası</label>
                 <select asp-for="MarkaId" class="form-control" asp-items="ViewBag.MarkaId"></select>
@@ -53,6 +56,24 @@
                 <span asp-validation-for="Notlar" class="text-danger"></span>
             </div>
             <div class="form-group">
+                <label asp-for="Foto1" class="control-label">1. Fotoğraf</label>
+                <input asp-for="Foto1" class="form-control" type="file" />
+                <span asp-validation-for="Foto1" class="text-danger"></span>
+                <img src="~/Img/Cars/@Model.Foto1" alt="" height="60px" />
+            </div>
+            <div class="form-group">
+                <label asp-for="Foto2" class="control-label">2. Fotoğraf</label>
+                <input asp-for="Foto2" class="form-control" type="file" />
+                <span asp-validation-for="Foto2" class="text-danger"></span>
+                <img src="~/Img/Cars/@Model.Foto2" alt="" height="60px" />
+            </div>
+            <div class="form-group">
+                <label asp-for="Foto3" class="control-label">3.Fotoğraf</label>
+                <input asp-for="Foto3" class="form-control" type="file" />
+                <span asp-validation-for="Foto3" class="text-danger"></span>
+                <img src="~/Img/Cars/@Model.Foto3" alt="" height="60px" />
+            </div>
+            <div class="form-group mt-3">
                 <input type="submit" value="Kaydet" class="btn btn-primary" />
             </div>
         </form>

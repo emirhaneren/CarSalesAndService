@@ -1,3 +1,5 @@
+using CarSalesAndService.Entities;
+using CarSalesAndService.Service.Abstract;
 using CarSalesAndService.WebUI.Models;
 using Microsoft.AspNetCore.Mvc;
 using System.Diagnostics;
@@ -6,16 +8,17 @@ namespace CarSalesAndService.WebUI.Controllers
 {
     public class HomeController : Controller
     {
-        private readonly ILogger<HomeController> _logger;
+        private readonly IService<Slider> _serviceSlider;
 
-        public HomeController(ILogger<HomeController> logger)
+        public HomeController(IService<Slider> serviceSlider)
         {
-            _logger = logger;
+            _serviceSlider = serviceSlider;
         }
 
-        public IActionResult Index()
+        public async Task<IActionResult> Index()
         {
-            return View();
+            var model = await _serviceSlider.GetAllAsync();
+            return View(model);
         }
 
         public IActionResult Privacy()

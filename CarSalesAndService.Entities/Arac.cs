@@ -20,6 +20,12 @@ namespace CarSalesAndService.Entities
         public bool SatistaMi { get; set; }
         [Required(ErrorMessage = "{0} Boş bırakılamaz !")]
         public string Notlar { get; set; }
+        [StringLength(300)]
+        public string? Foto1 { get; set; }
+        [StringLength(300)]
+        public string? Foto2 { get; set; }
+        [StringLength(300)]
+        public string? Foto3 { get; set; }
         public virtual Marka? Marka { get; set; } //Araç sınıfı ile Marka sınıfı arasında bağlantı
     }
 }

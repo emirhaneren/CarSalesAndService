@@ -4,6 +4,7 @@ using CarSalesAndService.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace CarSalesAndService.Data.Migrations
 {
     [DbContext(typeof(DatabaseContext))]
-    partial class DatabaseContextModelSnapshot : ModelSnapshot
+    [Migration("20241221134410_AracFotoField")]
+    partial class AracFotoField
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -137,7 +140,7 @@ namespace CarSalesAndService.Data.Migrations
                             Id = 1,
                             Adi = "Admin",
                             AktifMi = true,
-                            EklenmeTarihi = new DateTime(2024, 12, 21, 16, 54, 34, 563, DateTimeKind.Local).AddTicks(481),
+                            EklenmeTarihi = new DateTime(2024, 12, 21, 16, 44, 9, 13, DateTimeKind.Local).AddTicks(5998),
                             Email = "admin@otoservice.com",
                             KullaniciAdi = "admin",
                             RolId = 1,
@@ -324,31 +327,6 @@ namespace CarSalesAndService.Data.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Servisler");
-                });
-
-            modelBuilder.Entity("CarSalesAndService.Entities.Slider", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
-
-                    b.Property<string>("Aciklama")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Baslik")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Foto")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Link")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("Sliders");
                 });
 
             modelBuilder.Entity("CarSalesAndService.Entities.Arac", b =>
