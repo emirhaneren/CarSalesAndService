@@ -1,7 +1,9 @@
 ﻿using CarSalesAndService.Entities;
 using CarSalesAndService.Service.Abstract;
 using CarSalesAndService.Service.Concrete;
+using CarSalesAndService.WebUI.Models;
 using Microsoft.AspNetCore.Mvc;
+using System.Security.Claims;
 
 namespace CarSalesAndService.WebUI.Controllers
 {
@@ -9,16 +11,50 @@ namespace CarSalesAndService.WebUI.Controllers
     {
         private readonly ICarService _serviceArac;
         private readonly IService<Musteri> _serviceMusteri;
+        private readonly IUserService _serviceUser;
 
-        public CarController(ICarService serviceArac, IService<Musteri> serviceMusteri)
+        public CarController(ICarService serviceArac, IService<Musteri> serviceMusteri, IUserService serviceUser)
         {
             _serviceArac = serviceArac;
             _serviceMusteri = serviceMusteri;
+            _serviceUser = serviceUser;
         }
 
-        public async Task<IActionResult> Index(int id)
+        public async Task<IActionResult> Index(int? id)
         {
-            var model = await _serviceArac.GetCustomCar(id);
+            if (id == null)
+                return BadRequest();
+
+            var modelArac = await _serviceArac.GetCustomCar(id.Value);
+            if (modelArac == null)
+                return NotFound();
+
+            var model = new CustomerCarDetailViewModel();
+            model.Car = modelArac;
+            if (User.Identity.IsAuthenticated)
+            {
+                var email = User.FindFirst(ClaimTypes.Email)?.Value;
+                var guid = User.FindFirst(ClaimTypes.UserData)?.Value;
+                if (!string.IsNullOrEmpty(email) || !string.IsNullOrEmpty(guid))
+                {
+                    var user = _serviceUser.Get(x => x.Email == email && x.UserGuid.ToString() == guid.ToString());
+                    if (user != null)
+                    {
+                        model.Customer = new Musteri
+                        {
+                            Adi=user.Adi,
+                            Soyadi=user.Soyadi,
+                            Email=user.Email,
+                            Telefon=user.Telefon
+                        };
+                    }
+                }
+            }
+
+            
+            
+
+
             return View(model);
         }
 
@@ -42,7 +78,7 @@ namespace CarSalesAndService.WebUI.Controllers
                 {
                     await _serviceMusteri.AddAsync(musteri);
                     await _serviceMusteri.SaveAsync();
-                    return Redirect("/Car/Index/"+musteri.AracId);
+                    return Redirect("/Car/Index/" + musteri.AracId);
                 }
                 catch
                 {

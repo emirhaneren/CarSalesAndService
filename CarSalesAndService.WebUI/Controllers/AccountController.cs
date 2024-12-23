@@ -12,20 +12,64 @@ namespace CarSalesAndService.WebUI.Controllers
 {
     public class AccountController : Controller
     {
-        private readonly IService<Kullanici> _serviceUser;
+        private readonly IUserService _serviceUser;
         private readonly IService<Rol> _serviceRol;
 
-        public AccountController(IService<Kullanici> serviceUser, IService<Rol> serviceRol)
+        public AccountController(IUserService serviceUser, IService<Rol> serviceRol)
         {
             _serviceUser = serviceUser;
             _serviceRol = serviceRol;
         }
-        [Authorize(Policy ="CustomerPolicy")]
+        [Authorize(Policy = "CustomerPolicy")]
         public IActionResult Index()
         {
-            return View();
+            var email = User.FindFirst(ClaimTypes.Email)?.Value;
+            var guid = User.FindFirst(ClaimTypes.UserData)?.Value;
+            if (!string.IsNullOrEmpty(email) || !string.IsNullOrEmpty(guid))
+            {
+                var user = _serviceUser.Get(x => x.Email == email && x.UserGuid.ToString() == guid.ToString());
+                if (user != null)
+                {
+                    return View(user);
+                }
+            }
+            return NotFound();
         }
+        [HttpPost]
+        [Authorize(Policy = "CustomerPolicy")]
+        public IActionResult UserUpdate(Kullanici kullanici)
+        {
+            try
+            {
+                var email = User.FindFirst(ClaimTypes.Email)?.Value;
+                var guid = User.FindFirst(ClaimTypes.UserData)?.Value;
+                if (!string.IsNullOrEmpty(email) || !string.IsNullOrEmpty(guid))
+                {
+                    var user = _serviceUser.Get(x => x.Email == email && x.UserGuid.ToString() == guid.ToString());
+                    if (user != null)
+                    {
+                        user.Adi=kullanici.Adi;
+                        user.Soyadi=kullanici.Soyadi;
+                        user.AktifMi=kullanici.AktifMi;
+                        user.Email=kullanici.Email;
+                        user.UserGuid=kullanici.UserGuid;
+                        user.Sifre=kullanici.Sifre;
+                        user.EklenmeTarihi=kullanici.EklenmeTarihi;
+                        user.Telefon=kullanici.Telefon;
 
+                        _serviceUser.Update(user);
+                        _serviceUser.Save();
+                    }
+                }
+            }
+            catch (Exception)
+            {
+                ModelState.AddModelError("", "Bir Hata Oluştu !");
+            }
+
+
+            return RedirectToAction("Index");
+        }
         public IActionResult Register()
         {
             return View();
@@ -38,13 +82,13 @@ namespace CarSalesAndService.WebUI.Controllers
                 try
                 {
                     var rol = await _serviceRol.GetAsync(r => r.Adi == "Customer");
-                    if(rol == null)
+                    if (rol == null)
                     {
                         ModelState.AddModelError("", "Kayıt Başarısız !");
                         return View();
                     }
-                    
-                    kullanici.RolId= rol.Id;
+
+                    kullanici.RolId = rol.Id;
                     kullanici.AktifMi = true;
                     await _serviceUser.AddAsync(kullanici);
                     await _serviceUser.SaveAsync();
@@ -66,7 +110,7 @@ namespace CarSalesAndService.WebUI.Controllers
         {
             try
             {
-                var account =await _serviceUser.GetAsync(k => k.Email == login.Email && k.Sifre == login.Sifre && k.AktifMi == true);
+                var account = await _serviceUser.GetAsync(k => k.Email == login.Email && k.Sifre == login.Sifre && k.AktifMi == true);
                 if (account == null)
                 {
                     ModelState.AddModelError("", "Giriş Başarısız !");
@@ -74,9 +118,11 @@ namespace CarSalesAndService.WebUI.Controllers
                 else
                 {
                     var rol = _serviceRol.Get(r => r.Id == account.RolId);
-                    var claims = new List<Claim>()
+                    var claims = new List<Claim>()//Cookie Verileri
                     {
-                        new Claim(ClaimTypes.Name,account.Adi)
+                        new Claim(ClaimTypes.Name,account.Adi),
+                        new Claim(ClaimTypes.Email,account.Email),
+                        new Claim(ClaimTypes.UserData,account.UserGuid.ToString())
                     };
                     if (rol is not null)
                     {

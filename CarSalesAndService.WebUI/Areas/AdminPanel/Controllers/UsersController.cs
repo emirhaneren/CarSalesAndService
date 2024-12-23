@@ -10,10 +10,10 @@ namespace CarSalesAndService.WebUI.Areas.AdminPanel.Controllers
     [Authorize(Policy = "AdminPolicy")]
     public class UsersController : Controller
     {
-        private readonly IService<Kullanici> _service;
+        private readonly IUserService _service;
         private readonly IService<Rol> _serviceRol;
         //Dependency Injection
-        public UsersController(IService<Kullanici> service, IService<Rol> serviceRol)
+        public UsersController(IUserService service, IService<Rol> serviceRol)
         {
             _service = service;
             _serviceRol = serviceRol;
@@ -22,8 +22,7 @@ namespace CarSalesAndService.WebUI.Areas.AdminPanel.Controllers
         // GET: UsersController
         public async Task<ActionResult> IndexAsync()
         {
-            ViewBag.RolId = new SelectList(await _serviceRol.GetAllAsync(), "Id", "Adi");
-            var model = await _service.GetAllAsync();
+            var model = await _service.GetCustomUserList();
             return View(model);
         }
 

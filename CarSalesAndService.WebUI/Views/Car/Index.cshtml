@@ -1,6 +1,6 @@
-﻿@model CarSalesAndService.Entities.Arac
+﻿@model CustomerCarDetailViewModel
 @{
-    ViewData["Title"] = Model.Marka.Adi + " - " + Model.Modeli + " - " + Model.KasaTipi;
+    ViewData["Title"] = Model.Car.Marka.Adi + " - " + Model.Car.Modeli + " - " + Model.Car.KasaTipi;
 }
 
 <section class="py-5">
@@ -15,13 +15,13 @@
                     </div>
                     <div class="carousel-inner">
                         <div class="carousel-item active">
-                            <img src="/Img/Cars/@Model.Foto1" class="d-block w-100" alt="@Model.Foto1">
+                            <img src="/Img/Cars/@Model.Car.Foto1" class="d-block w-100" alt="@Model.Car.Foto1">
                         </div>
                         <div class="carousel-item">
-                            <img src="/Img/Cars/@Model.Foto2" class="d-block w-100" alt="@Model.Foto1">
+                            <img src="/Img/Cars/@Model.Car.Foto2" class="d-block w-100" alt="@Model.Car.Foto1">
                         </div>
                         <div class="carousel-item">
-                            <img src="/Img/Cars/@Model.Foto3" class="d-block w-100" alt="@Model.Foto1">
+                            <img src="/Img/Cars/@Model.Car.Foto3" class="d-block w-100" alt="@Model.Car.Foto1">
                         </div>
                     </div>
                     <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="prev">
@@ -36,15 +36,15 @@
                 <div class="col-md-6 ">
                     <h1 class="display-5 fw-bolder">@ViewData["Title"]</h1>
                     <div class="fs-5 mb-2 mt-5">
-                        <span>Fiyat : @Model.Fiyati ₺</span>
+                        <span>Fiyat : @Model.Car.Fiyati ₺</span>
                     </div>
                     <div class="fs-5 mb-2">
-                        <span>Renk : @Model.Renk</span>
+                        <span>Renk : @Model.Car.Renk</span>
                     </div>
                     <div class="fs-5 mb-2">
-                        <span>Model Yılı : @Model.ModelYili</span>
+                        <span>Model Yılı : @Model.Car.ModelYili</span>
                     </div>
-                    <p class="lead">@Model.Notlar</p>
+                    <p class="lead">@Model.Car.Notlar</p>
                     <div class="d-flex">
                         <button class="btn btn-outline-dark flex-shrink-0" type="button" data-bs-toggle="modal" data-bs-target="#exampleModal">
                             <i class="bi-cart-fill me-1"></i>
@@ -56,4 +56,4 @@
         </div>
 </section>
 
-<partial name="Musteri" model="null" />
+<partial name="Musteri" model="Model.Customer" />
