@@ -1,4 +1,5 @@
 ﻿using System.ComponentModel.DataAnnotations;
+using System.Xml.Linq;
 
 namespace CarSalesAndService.Entities
 {
@@ -13,7 +14,7 @@ namespace CarSalesAndService.Entities
         [StringLength(100)]
         [Display(Name = "Soyadı"), Required(ErrorMessage = "{0} Boş bırakılamaz !")]
         public string Soyadi { get; set; }
-        [StringLength(11),Display(Name = "TCKN")]
+        [StringLength(11), Display(Name = "TCKN")]
         public string? TcNo { get; set; }
         [StringLength(50)]
         public string Email { get; set; }
@@ -23,5 +24,13 @@ namespace CarSalesAndService.Entities
         public string Telefon { get; set; }
         public string? Notlar { get; set; }
         public virtual Arac? Arac { get; set; }
+        [Display(Name = "Ad Soyad"), ScaffoldColumn(false)]
+        public string? AdSoyad
+        {
+            get
+            {
+                return this.Adi + " " + this.Soyadi;
+            }
+        }
     }
 }

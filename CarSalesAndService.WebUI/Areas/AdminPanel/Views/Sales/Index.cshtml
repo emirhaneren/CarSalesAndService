@@ -32,16 +32,19 @@
         {
             <tr>
                 <td>
-                    @Html.DisplayFor(modelItem => item.SatisFiyati)
+                    @item.SatisFiyati.ToString("c")
                 </td>
                 <td>
                     @Html.DisplayFor(modelItem => item.SatisTarihi)
                 </td>
                 <td>
+                    @Html.DisplayFor(modelItem => item.Arac.Renk)
                     @Html.DisplayFor(modelItem => item.Arac.Modeli)
+                    @Html.DisplayFor(modelItem => item.Arac.Marka.Adi)
                 </td>
                 <td>
                     @Html.DisplayFor(modelItem => item.Musteri.Adi)
+                    @Html.DisplayFor(modelItem => item.Musteri.Soyadi)
                 </td>
                 <td>
                     <a class="btn btn-outline-primary" asp-action="Edit" asp-route-id="@item.Id">Düzenle</a> |

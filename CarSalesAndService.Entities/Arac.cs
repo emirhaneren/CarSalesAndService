@@ -29,5 +29,14 @@ namespace CarSalesAndService.Entities
         [StringLength(300)]
         public string? Foto3 { get; set; }
         public virtual Marka? Marka { get; set; } //Araç sınıfı ile Marka sınıfı arasında bağlantı
+        [Display(Name = "Özet"), ScaffoldColumn(false)]
+        public string? AracBilgi
+        {
+            get
+            {
+                return this.Renk + " " + this.Modeli + " " + this.KasaTipi;
+            }
+
+        }
     }
 }

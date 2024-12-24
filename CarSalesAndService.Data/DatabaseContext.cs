@@ -20,7 +20,7 @@ namespace CarSalesAndService.Data
         {
             optionsBuilder.UseSqlServer(@"server=(LocalDB)\MSSQLLocalDB; database=DBCarSalesAndService;
             integrated security=True; MultipleActiveResultSets=True;"); //Connection String
-
+            optionsBuilder.UseLazyLoadingProxies();
             optionsBuilder.ConfigureWarnings(warnings =>
             warnings.Ignore(RelationalEventId.PendingModelChangesWarning));
 

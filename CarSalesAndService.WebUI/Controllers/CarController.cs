@@ -2,6 +2,7 @@
 using CarSalesAndService.Service.Abstract;
 using CarSalesAndService.Service.Concrete;
 using CarSalesAndService.WebUI.Models;
+using CarSalesAndService.WebUI.Utils;
 using Microsoft.AspNetCore.Mvc;
 using System.Security.Claims;
 
@@ -42,19 +43,14 @@ namespace CarSalesAndService.WebUI.Controllers
                     {
                         model.Customer = new Musteri
                         {
-                            Adi=user.Adi,
-                            Soyadi=user.Soyadi,
-                            Email=user.Email,
-                            Telefon=user.Telefon
+                            Adi = user.Adi,
+                            Soyadi = user.Soyadi,
+                            Email = user.Email,
+                            Telefon = user.Telefon
                         };
                     }
                 }
             }
-
-            
-            
-
-
             return View(model);
         }
 
@@ -78,10 +74,13 @@ namespace CarSalesAndService.WebUI.Controllers
                 {
                     await _serviceMusteri.AddAsync(musteri);
                     await _serviceMusteri.SaveAsync();
+                    //await MailHelper.SendMailAsync(musteri); TODO
+                    TempData["Message"] = "<div class='alert alert-success'> Talebiniz alınmıştır. En kısa zamanda sizlerle iletişime geçeceğiz. </div>";
                     return Redirect("/Car/Index/" + musteri.AracId);
                 }
                 catch
                 {
+                    TempData["Message"] = "<div> class='alert alert-danger' Bir hata oluştu ! </div>";
                     ModelState.AddModelError("", "Bir hata oluştu !");
                 }
             }
